@@ -1,0 +1,326 @@
+
+/* reset css */
+*
+{
+    margin:0; 
+    padding:0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body
+{
+    background-color:rgb(218, 10, 10);
+    padding-bottom: 10%;
+}
+
+
+/* !====section-homepage-header===== */
+section.homepage-header
+{
+    
+}
+section.homepage-header header
+{
+    padding: 0em 1em;
+    background:#fff;
+    display: flex;
+    justify-content:space-between;
+    flex-wrap: wrap; 
+    position:relative;
+}
+
+section.homepage-header header *
+{
+    font-size:.9rem;
+}
+
+/* burger parent */ 
+section.homepage-header .burger
+{
+    display: flex;
+    flex-direction:column;
+    align-items:center;
+    gap:7px;
+    padding:1em 0;
+}
+/* burger children */
+section.homepage-header .burger span
+{
+    display: inline-block;
+    background:#000;
+    height:3px;
+    width:28px;
+    border-radius:40%;
+    transition:transform .3s ease-out;
+}
+
+section.homepage-header .burger .rotate-down
+{
+    transform: rotate(45deg);
+    transform-origin:left;
+}
+section.homepage-header .burger .scale-down
+{
+    transform: scale(0);
+}
+section.homepage-header .burger .rotate-up
+{
+    transform: rotate(-45deg);
+    transform-origin:left;
+}
+section.homepage-header .burger .normal
+{
+    transform:unset;
+}
+
+/* burger dropdown parent */
+section.homepage-header  .burger-dropdown
+{
+    position:absolute;
+    background:#fff;
+    left:0;
+    top:0;
+    margin-top: 4.2em;
+    width: 100%;
+    overflow:hidden;
+    min-height:max-content;
+    /* height: 130vh; */
+    /* padding-bottom : 30vh; */
+    transition:height .5s ease-in-out;
+}
+/* class for scale down burger-dropdown  */
+section.homepage-header .hide
+{
+    min-height: 0;
+    height: 0;
+}
+.show
+{
+    height:100vmax;
+}
+
+/* class max--content toggle for burger-dropdown  */
+.max--content
+{
+    height: max-content;
+}
+
+/* list item parent whithin burger-dropdown */
+
+section.homepage-header .list-item-parent
+{
+    display: flex;
+    flex-direction:column;
+    list-style-type:none;
+}
+
+/* list item children of list item parent */
+section.homepage-header .list-item-parent > li
+{
+    border-bottom: 1px solid #c0c0c0;
+    display: flex;
+    justify-content:space-between;
+    position:relative;
+    flex-wrap: wrap;
+    cursor:pointer;
+    transition:background-color .3s ease-in-out;
+}
+/* toggle for change bg consumer */
+.change-bg
+{
+    transition:background-color .3s ease-out;
+    background: #e7e7e760;
+}
+
+/* nth-child(1) of  consumer */
+section.homepage-header .list-item-parent > li > a
+{
+    text-decoration:unset;
+    color: black;
+    line-height: 3em;
+    cursor: pointer;
+    margin:0 1em;
+}
+/* nth-child(2) of consumer*/
+section.homepage-header .list-item-parent > li > img
+{
+    width:12px;
+    transition:transform .3s ease-out;
+    cursor:pointer;
+    margin:0 1em;
+}
+/*  nth-child(3) of consumer */
+section.homepage-header .consumer-dropdown
+{
+    flex-basis:100%;
+    transition:height .3s ease-in-out;
+    overflow: hidden;
+    transition:height .3s ease-in-out ;
+    /* background-color:#e7e7e754; */
+    background-color:#e4090954;
+    height: 0;
+   
+}
+
+/* classlist for consumer-dropdown 
+to grow up*/
+section.homepage-header .grow-dropdown
+{
+    height:max-content;
+}
+/* rotate the image svg on consumer-dropdown */
+.rotate180-deg
+{
+    transform:rotate(180deg);
+}
+
+/* list item child heritance of consumer dropdown */
+.consumer-dropdown .cd--item
+{
+    list-style:unset;
+    
+}
+
+.consumer-dropdown .cd--item li
+{
+    padding: 0 2rem 1.5rem;
+    display:flex;
+    justify-content: space-between;
+    flex-wrap:wrap;
+}
+
+.cd--item a
+{
+    text-decoration:none;
+    color:black;
+}
+.consumer-dropdown .cd--item li  h1
+{
+    line-height:1.3rem;
+    font-size:.8rem;
+    font-weight:500;
+}
+
+.consumer-dropdown .cd--item span
+{
+    font-size:.8rem;
+    color: #8f8f8f;
+    font-weight:300;
+}
+.consumer-dropdown .cd--item li img
+{
+    width:10px;
+    transition:transform .3s ease-out;
+}
+.consumer-dropdown .cd--item li:nth-of-type(5)
+{
+    border-bottom:1px solid #c0c0c0;
+    padding-bottom:1rem;
+}
+/* dropdown mavic series */
+.cd--item .dropdown--mavicseries
+{
+    display:flex;
+    flex-direction:column;
+    flex-basis:100%;
+    overflow:hidden;
+    height: 0;
+    margin:0 1rem;
+    transition:height .3s ease-out;
+}
+
+.cd--item .dropdown--mavicseries > a
+{
+    text-decoration:unset;
+    color:black;
+    margin-top:1rem;
+}
+
+.cd--item .grow-height
+{
+    height:max-content;
+}
+/* logo dji style */
+section.homepage-header .logo
+{
+    padding-top:5px;
+}
+section.homepage-header .logo img
+{
+    width:50px;
+}
+
+/* shopping-bag-icon */
+section.homepage-header .shopping-bag img
+{
+    padding-top:1.3em;
+}
+
+/* desktop header style*/
+section.homepage-header .desktop
+{
+    display:none;
+    justify-content: center;
+    gap: 2em;
+}
+
+section.homepage-header .parent-link,
+section.homepage-header .parent-link-right
+{
+    display: flex;
+    padding-top:1.3em;
+    gap: 1em;
+
+}
+
+
+section.homepage-header .parent-link
+{
+    min-width: 50%;
+    justify-content: space-between;
+    margin-right: 10%;
+}
+section.homepage-header .parent-link-right
+{
+    gap: 1em;
+}
+
+
+section.homepage-header .parent-link-right span:first-of-type a
+{
+    padding: .5em 1em;
+    background:#7fbefa;
+    border-radius:10%;
+    color:#fff;
+    text-decoration:unset;
+    margin-right: 1cm;
+}
+section.homepage-header .parent-link-right span:nth-of-type(2)>img
+{
+    width:30px;
+    
+
+}
+section.homepage-header .parent-link-right span ~ span
+{
+    transform: translateY(-5px);
+}
+
+
+/* breakpoints section homepage-header */
+@media (min-width:1025px){
+    section.homepage-header .mobile
+    {
+        display:none;  
+    }
+
+    section.homepage-header .desktop
+    {
+        display:flex;  
+    }
+}
+
+
+
+
