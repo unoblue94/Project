@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game suwit Jawa</title>
+
+    <style>
+        *
+        {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+             
+        }
+        html,body
+        {
+            text-align: center;
+            background-color: yellow;
+        }
+        .box
+        {
+            margin: auto;
+            width: 40vw;
+            height: 30vh;
+        }
+        .orange
+        {
+            background: orange;
+            border-top-left-radius: 1em;
+            border-top-right-radius: 1em;
+        }
+        .teal
+        {
+            background: teal;
+            border-bottom-left-radius: 1em;
+            border-bottom-right-radius: 1em;
+            display: flex;
+            flex-direction: column-reverse;
+            justify-content: center;
+            padding-top: 2em;
+            gap: .5em;
+        }
+        .box>h2
+        {
+            font-size: 2em;
+            color: #000;
+        }
+        
+        #result
+        {   width: 10rem;
+            height: 4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            background: #fff;
+            color: #000;
+            position: absolute;
+            left:50vw;
+            transform: translate(-50%,-50%);
+            border-radius:.5em; 
+            border: 5px solid black;  
+        }
+        .options
+        {
+            display: flex;
+            justify-content:space-evenly;
+            height: 50%;
+            align-items: center;
+        }
+        .options img
+        {
+            width: 50px;
+            height: 50px;
+            border: 5px solid yellow;
+            border-radius: 50%;
+            display: inline-block;
+            /* background: #fff; */
+        }
+        .options img:hover
+        {
+            background: #525252;
+        }
+        .options>div
+        {
+            display: flex;
+            flex-direction: column;
+            gap: .5em;
+        }
+        .teal img:hover
+        {
+            background:#525252;   
+        }
+        .teal img
+        {
+            width: 70px;
+            height: 70px;
+            display: inline-block;
+            border-radius: 50%;
+            border: 5px solid yellow;
+            background: #fff;
+        }
+        .box img:hover
+        {
+            box-shadow: 2px 2px 10px 1px #00000098;  
+        }
+        .box img
+        {
+            box-shadow: 2px 2px 10px 5px #00000098;
+            transition: .5s;
+        }
+        .red{
+            background-color: red;
+        }
+
+        
+        
+    </style>
+</head>
+<body>
+        <h1>Game suwit jawa</h1>
+        <div class="box orange">
+            <h2>player</h2>
+            <div class="options">
+                <div><img src="gunting.png" alt="gunting" class="gunting">gunting</div>
+                <div><img src="batu.png" alt="batu" class ='batu'>batu</div>
+                <div ><img src="kertas.png" alt="kertas" class='kertas'>kertas</div>
+            </div>
+        </div>
+        <div id="result"></div>
+        <div class="box teal">
+            <h2>computer</h2>
+            <div><img src="gunting.png" alt="gunting" class ='comp'></div>
+        </div>
+
+
+        <script> 
+
+
+                            /*  ||||||||||     |||||||||      |||||||
+                                    ||        ||       ||     ||    ||
+                                    ||        ||       ||     ||||||
+                                    ||         |||||||||      ||        */
+
+                            
+            const pilComp = document.querySelector('.comp'); // catch element HTML class='compt'
+            const playerOpt = document.querySelectorAll('.options div img');//  cacth element HTML collection
+
+        
+            // function get computer Choice
+            function getComp(){
+                            const option = Math.random();
+                            if(option < 0.34) return 'gunting';
+                            if(option >= 0.34 && option < 0.67) return 'batu';
+                            return 'kertas'
+            }// End function get computer Choice
+                        
+            // function suffle image use setInterval function
+            function suffle(){
+                            let image=['gunting','batu','kertas']
+                            let u= 0;
+                            const tNow = new Date().getTime()
+
+                            setInterval(() => {
+                                    
+                                    if(new Date().getTime() - tNow > 1000){
+                                        clearInterval;
+                                        return
+                                    } 
+                                    pilComp.setAttribute('src',image[u++]+'.png')
+                                    if(u==image.length) return u= 0;   
+                            },100);
+            }// end function suffle image use setInterval function
+
+            // setTimeOut function
+            function timeOut(){
+                            const result  = document.getElementById('result'); //catch element HTML id result
+                            setTimeout(() => {
+                                    result.innerHTML = hasil();
+                                    pilComp.setAttribute('src',cChoice+'.png')
+                                }, 1000);
+            }// End setTimeOut function 
+
+            //  looping element HTML collection playerOpt
+                playerOpt.forEach(function(i){
+                            // add event Listener click for each PlayerOpt
+                                i.addEventListener('click',function(){
+                                                const pChoice = i.className;
+                                                const cChoice = getComp();
+
+                                                let hasil =function(){
+                                                    if(pChoice == cChoice) return hasil ='seri'    
+                                                    if(pChoice =='gunting') return (cChoice == 'batu')? 'kalah':'menang';
+                                                    if(pChoice =='batu') return (cChoice == 'kertas')? "kalah":'menang';
+                                                    return (cChoice == 'gunting')? 'kalah':'menang';
+                                                };
+                                                suffle(); // running function suffle
+
+                                                // setTimeOut function
+                                                function timeOut(){
+                                                                const result  = document.getElementById('result'); //catch element HTML id result
+                                                                setTimeout(() => {
+                                                                        pilComp.setAttribute('src',cChoice+'.png')
+                                                                }, 1000);
+
+                                                                setTimeout(() => {
+                                                                        result.innerHTML = hasil();
+                                                                }, 1500);
+                                                }   
+                                                // End setTimeOut function 
+                                                timeOut() // running function timeOut;
+
+                                })// End add event Listener click for each PlayerOpt
+
+                                
+                })//  End looping element HTML collection playerOpt
+
+
+                /*
+                    GAME SUWIT JAWA VERSI 2.0 
+                    FULL JAVASCRIPT AND CSS ELEMENT
+                */
+
+                // CREATE ELEMENT
+                const container = document.createElement('div');
+                container.setAttribute('class','container')
+                const boxTeal = document.querySelector('.box.teal');
+                boxTeal.after(container);
+
+                const boxRed = document.createElement('div');
+                boxRed.setAttribute('class','box red');
+                container.appendChild(boxRed);
+                const boxBlack = document.createElement('div');
+                boxBlack.setAttribute('class','box black');
+                boxRed.after(boxBlack);
+
+                const textPlayer = document.createElement('h1');
+                const contentP = document.createTextNode('PLAYER');
+                textPlayer.appendChild(contentP);
+                
+                boxRed.appendChild(textPlayer);
+
+                const textComp = document.createElement('h1');
+                const contentC = document.createTextNode('COMPUTER');
+                textComp.appendChild(contentC);
+                
+                boxBlack.appendChild(textComp);
+                const boxResult = document.createElement('div');
+                boxResult.setAttribute('class', 'result');
+                
+
+                boxRed.after(boxResult);
+
+                const imageCont =document.createElement('div')
+                boxRed.appendChild(imageCont);
+
+                const img1 =document.createElement('img');
+                img1.setAttribute('src','gunting.png');
+                img1.setAttribute('class','gunting');
+
+                const img2 =document.createElement('img');
+                img2.setAttribute('src','batu.png');
+                img2.setAttribute('class','batu');
+
+                const img3 =document.createElement('img');
+                img3.setAttribute('src','kertas.png');
+                img3.setAttribute('class','kertas');
+                
+                imageCont.appendChild(img1);
+                imageCont.appendChild(img2);
+                imageCont.appendChild(img3);
+
+                const img1Wrapper = document.createElement('div');
+                const img2Wrapper = document.createElement('div');
+                const img3Wrapper = document.createElement('div');
+
+                const textForIWrap1=document.createTextNode('gunting');
+                const textForIWrap2=document.createTextNode('batu');
+                const textForIWrap3=document.createTextNode('kertas');
+
+
+                img1Wrapper.appendChild(textForIWrap1)
+                img2Wrapper.appendChild(textForIWrap2)
+                img3Wrapper.appendChild(textForIWrap3)
+
+                imageCont.appendChild(img1Wrapper);
+                imageCont.appendChild(img2Wrapper);
+                imageCont.appendChild(img3Wrapper);
+                
+                img1Wrapper.appendChild(img1)
+                img2Wrapper.appendChild(img2)
+                img3Wrapper.appendChild(img3)
+
+                const contImageComp = document.createElement('div');
+                const titleImageComp =document.createElement('h1');
+                const textForTitleImageComp = document.createTextNode('batu');
+                titleImageComp.appendChild(textForTitleImageComp);
+
+                const imageComp = document.createElement('img');
+                imageComp.setAttribute('src','Batu.png');
+
+                contImageComp.appendChild(imageComp);
+                contImageComp.appendChild(titleImageComp);
+                
+
+                boxBlack.appendChild(contImageComp);
+
+                
+                
+                // set boxShadow function
+                function shadow(){
+                    imageComp.style.boxShadow ='none';
+                }//end boxShadow function.
+
+                // set boxShadow function
+                function shadowsGone(){
+                    imageComp.style.boxShadow =' 2px 2px 10px 5px white';
+                    
+                }//end boxShadow function.
+                
+
+                // STYLE ELEMENT
+                contImageComp.display ='flex';
+                contImageComp.flexDirection ='column';
+                contImageComp.style.gap ='1em';
+                
+
+                titleImageComp.style.color = 'white'
+                titleImageComp.style.fontSize = '2em';
+                titleImageComp.style.textDecoration ='underline';
+
+                
+                imageComp.addEventListener('mouseover',shadow);
+                imageComp.addEventListener('mouseleave',shadowsGone);
+                imageComp.style.width = '150px';
+                imageComp.style.cursor ='pointer';
+                imageComp.style.height= '150px';
+                imageComp.style.borderRadius ='50%';
+                imageComp.style.backgroundColor ='white';
+                imageComp.style.display ='inline-block';
+
+                img1Wrapper.style.display = 'flex';
+                img2Wrapper.style.display = 'flex';
+                img3Wrapper.style.display = 'flex';
+
+                img1Wrapper.style.flexDirection ='column-reverse';
+                img2Wrapper.style.flexDirection ='column-reverse';
+                img3Wrapper.style.flexDirection ='column-reverse';
+
+                img1Wrapper.style.gap ='.5em';
+                img2Wrapper.style.gap ='.5em';
+                img3Wrapper.style.gap ='.5em';
+
+                img1Wrapper.style.fontSize ='2em';
+                img2Wrapper.style.fontSize ='2em';
+                img3Wrapper.style.fontSize ='2em';
+
+                
+                img1Wrapper.style.color ='white';
+                img2Wrapper.style.color ='white';
+                img3Wrapper.style.color ='white';
+
+                
+                img1Wrapper.style.textDecoration = 'underline';
+                img2Wrapper.style.textDecoration = 'underline';
+                img3Wrapper.style.textDecoration = 'underline';
+
+                
+
+                
+
+                imageCont.style.display ='flex';
+                imageCont.style.gap ='2em';
+                
+
+                img1.style.maxWidth = '80px';
+                img1.style.cursor = 'pointer';
+                img1.style.minWidth = '10px';
+                img1.style.background = 'white'
+                img1.style.borderRadius = '50%';
+                img1.style.display ='block';
+
+                img2.style.cursor ='pointer'
+                img2.style.width = '80px';
+                img2.style.height = '80px';
+                img2.style.borderRadius = '50%';
+                img2.style.background ='white'
+
+
+                img3.style.cursor ='pointer';
+                img3.style.width = '80px';
+                img3.style.height = '80px';
+                img3.style.borderRadius = '50%';
+                img3.style.background ='white';
+
+                boxResult.style.width= '200px';
+                boxResult.style.display= 'flex';
+                boxResult.style.justifyContent='center';
+                boxResult.style.alignItems='center';
+                boxResult.style.fontSize='2em';
+                boxResult.style.color ='red';
+                boxResult.style.letterSpacing ='3px'
+                boxResult.style.height = '70px';
+                boxResult.style.backgroundColor= 'white';
+                boxResult.style.border = '2px solid teal';
+                boxResult.style.borderRadius = '10%';
+                textPlayer.style.fontFamily ="Times New Roman, Times, serif";
+
+                textComp.style.fontFamily ="Times New Roman, Times, serif";
+                textComp.style.color ='white'
+
+                
+                boxRed.style.display ='flex';
+                boxRed.style.gap ='2em';
+                boxRed.style.justifyContent ='flex-start'
+                boxRed.style.alignItems ='center'
+                boxRed.style.flexDirection ='column';
+                boxRed.style.width ='50vw';
+                boxRed.style.height ='50%';
+                boxRed.style.background ='red';
+                boxRed.style.borderTopLeftRadius ='1em';
+                boxRed.style.borderTopRightRadius ='1em';
+
+                
+                boxBlack.style.display ='flex';
+                boxBlack.style.gap ='2.5em';
+                boxBlack.style.flexDirection ='column-reverse'
+                boxBlack.style.justifyContent ='flex-start'
+                boxBlack.style.alignItems ='center'
+                boxBlack.style.width ='50vw';
+                boxBlack.style.height ='50%';
+                boxBlack.style.background ='black';
+                boxBlack.style.borderBottomLeftRadius ='1em';
+                boxBlack.style.borderBottomRightRadius ='1em';
+                
+                container.style.position = 'relative';
+                container.style.display = 'flex';
+                container.style.margin ='2em'
+                container.style.flexBasis = '100vw';
+                container.style.flexBasis = '100vw';
+                container.style.height ='50em'
+                container.style.justifyContent = 'center';
+                container.style.flexDirection = 'column';
+
+            
+                //  NON ACTIVE 
+                //  INTERACTIVE BY JAVASCRIPT
+                /*function randomComputerChoice(){
+                                const get = Math.random();
+                                if(get < 0.34) return 'kertas';
+                                if(get >= 0.34 && get <= 0.67) return 'batu';
+                                return 'gunting';
+                };
+
+                
+                
+                img1.addEventListener('click',function(){
+                            const player = img1.className;
+                            const computer = randomComputerChoice();
+                            const hasil = function(){
+                                            if(player == computer) return 'DRAW';
+                                            if(player == 'gunting') return (computer == 'batu')? 'LOSE':'WIN';
+                                            if(player == 'batu') return (computer == 'kertas')? 'LOSE':'WIN';
+                                            return (computer == 'gunting')?'LOSE':'WIN';
+
+                            }
+                            const now = new Date().getTime()
+                            const arrayOptions =['gunting','batu','kertas'];
+                            let index = 0;
+                            setInterval(() =>{
+                                
+                                if(new Date().getTime() - now > 1000){
+                                    clearInterval();
+                                    return;  
+                                }
+                                imageComp.setAttribute('src',''+ arrayOptions[index++] +'.png'); 
+                                if(index == arrayOptions.length) return index = 0;
+                            },100)
+
+                            setTimeout(function(){
+                                imageComp.setAttribute('src',''+computer+'.png');
+                                boxResult.innerHTML = hasil();
+                                imageComp.setAttribute('src',''+computer+'.png');
+                                boxResult.innerHTML = hasil();
+
+                            },1000)
+                            
+
+                            
+                })            
+                
+                img2.addEventListener('click',function(){
+                            const player = img2.className;
+                            const computer = randomComputerChoice();
+                            const hasil = function(){
+                                            if(player == computer) return 'DRAW';
+                                            if(player == 'gunting') return (computer == 'batu')? 'LOSE':'WIN';
+                                            if(player == 'batu') return (computer == 'kertas')? 'LOSE':'WIN';
+                                            return (computer == 'gunting')?'LOSE':'WIN';
+
+                            }
+                            const arrayOptions =['gunting','batu','kertas'];
+                            let index1 = 0;
+                            const now = new Date().getTime()
+                            setInterval(() =>{
+                                
+                                if(new Date().getTime() - now > 1000){
+                                    clearInterval;
+                                    return;
+                                    
+                                } 
+                                imageComp.setAttribute('src',''+ arrayOptions[index1++] +'.png');
+                                if(index1 == arrayOptions.length) return index1 = 0
+                            },100);
+
+                            setTimeout(function(){
+                                imageComp.setAttribute('src',''+computer+'.png');
+                                boxResult.innerHTML = hasil();
+                                imageComp.setAttribute('src',''+computer+'.png');
+                                boxResult.innerHTML = hasil();
+                            
+                            },1000);
+                            
+
+                            
+                })            
+                
+                 img3.addEventListener('click',function(){
+                            const player = img3.className;
+                            const computer = randomComputerChoice();
+                            const hasil = function(){
+                                            if(player == computer) return 'DRAW';
+                                            if(player == 'gunting') return (computer == 'batu')? 'LOSE':'WIN';
+                                            if(player == 'batu') return (computer == 'kertas')? 'LOSE':'WIN';
+                                            return (computer == 'gunting')?'LOSE':'WIN';
+
+                            };
+                            const arrayOptions =['gunting','batu','kertas'];
+                            let index2 = 0;
+                            const now = new Date().getTime()
+                            setInterval(() =>{
+                                if(new Date().getTime() - now > 1000){
+                                    clearInterval;
+                                    return;   
+                                }
+                                imageComp.setAttribute('src',arrayOptions[index2++] +'.png'); 
+                                if(index2 == arrayOptions.length) return index2 = 0;
+                            },100)
+
+                            setTimeout(function(){
+                                imageComp.setAttribute('src',''+computer+'.png');
+                                imageComp.setAttribute('src',''+computer+'.png');
+                                setTimeout(function(){
+                                boxResult.innerHTML = hasil();
+                                },500);
+                            },1500);
+                            
+                            
+                            
+                            
+
+                            
+                });END OF Code */
+
+
+                
+                
+                
+                
+                // comment // create Element div boxScorePlayer and appendChild() content text Player
+                const boxScorePlayer=document.createElement('div');
+                const textBoxScorePlayer=document.createTextNode('Player = ');
+                boxScorePlayer.appendChild(textBoxScorePlayer);
+                boxScorePlayer.setAttribute('src','boxScorePlayer');
+                container.appendChild(boxScorePlayer);
+                
+                // comment // create Element div  boxScoreComputer and appendChild() content text Computer//
+                const boxScoreComp=document.createElement('div');
+                const textBoxScoreComp=document.createTextNode('Computer = ');
+                boxScoreComp.appendChild(textBoxScoreComp);
+                boxScoreComp.setAttribute('src','boxScoreComp');
+                container.appendChild(boxScorePlayer);
+                container.appendChild(boxScoreComp);
+                boxRed.after(boxScorePlayer);
+                boxScorePlayer.after(boxScoreComp);
+                
+                //comment // create container Result for box result,box player and box computer.
+                const contBoxResult = document.createElement('div');
+                contBoxResult.setAttribute('src','contBoxResult');
+                boxRed.appendChild(contBoxResult);
+                contBoxResult.appendChild(boxScorePlayer);
+                contBoxResult.appendChild(boxResult);
+                contBoxResult.appendChild(boxScoreComp);
+                
+                
+                
+                // // style Element boxScore computer & player.
+                boxScorePlayer.style.width ='10em';
+                boxScorePlayer.style.height ='4em'
+                boxScorePlayer.style.backgroundColor = 'yellow';
+                boxScorePlayer.style.color ='Black';
+                boxScorePlayer.style.borderRadius ='1em';
+                boxScorePlayer.style.border ='2px solid black';
+                boxScorePlayer.style.lineHeight ='4em'
+                
+                
+                boxScoreComp.style.width ='10em';
+                boxScoreComp.style.lineHeight ='4em'
+                boxScoreComp.style.height ='4em';
+                boxScoreComp.style.backgroundColor = 'yellow';
+                boxScoreComp.style.color ='black';
+                boxScoreComp.style.borderRadius ='1em';
+                boxScoreComp.style.border ='2px solid black';
+                
+                // // style element container Box Result
+                contBoxResult.style.display ='flex';
+                contBoxResult.style.flexBasis ='100%';
+                contBoxResult.style.justifyContent ='center';
+                contBoxResult.style.gap ='2em';
+                contBoxResult.style.position='absolute'
+                contBoxResult.style.top ='50%';
+                contBoxResult.style.left ='50%';
+                contBoxResult.style.transform ='translate(-50%,-50%)';
+
+                const scoreP = document.createElement('span');
+                const scoreC = document.createElement('span');
+
+                const title =document.querySelector('.black > div:nth-child(2) > h1:nth-child(2)')
+                
+
+                boxScorePlayer.appendChild(scoreP);
+                boxScoreComp.appendChild(scoreC);
+                let noP =1, noC = 1;
+
+                // element for background black white;
+                // css path //html body div.container div.box.red div
+                const blackBG =document.querySelectorAll('div.container div.box.red div img');
+                
+                
+                // // ADD EVEN HANDLING USE .forEach();
+                function randomComputerChoice(get){
+                        const timeNow = new Date().getTime();
+                        let i = 0;
+                        let l =0;
+                        console.log(setInterval(function(){
+
+                            if(new Date().getTime() - timeNow > 4000){
+                                clearInterval
+                                return
+                            }
+
+                            
+                            let get = document.querySelectorAll('.box.red')[0];
+                            console.log();
+                            const target =get.children[1].querySelectorAll('img')
+                            const comp =get.nextElementSibling.children[1].querySelector('img');
+                            if(i ==target.length) return i = 0;
+                            comp.setAttribute('src',target[i++].className+'.png');
+
+                            if(l ==target.length ) return l=0;
+                            title.innerHTML = target[l++].className;
+                            
+                            
+                            
+                        },100));
+                        
+                        get = Math.random();
+                            if(get < 0.34) return 'kertas';
+                            if(get >= 0.34 && get <= 0.67) return 'batu';
+                            return 'gunting';    
+
+                }
+                const kotakPilihanPlayer = document.querySelectorAll('.box.red img');
+
+                function rules(p,c){
+                    if(p == c) return 'seri';
+                    if(p == 'gunting') return (c == 'batu')? 'kalah':'menang';
+                    if(p == 'batu') return (c == 'kertas')? 'kalah':'menang';
+                    return (c == 'kertas')? 'kalah':'menang';
+                }
+                
+
+                const newBox =document.createElement('div')
+                newBox.classList.toggle('ada');
+                document.body.querySelector('.box.red').appendChild(newBox);
+                newBox.style.backgroundColor ='white';
+                newBox.style.fontSize ='2em';
+
+                kotakPilihanPlayer.forEach(function(element){
+
+                      // element.style.backgroundColor ='black';
+                    if(element.addEventListener('click', function(player){
+                        console.log(player);
+                            if(element.className =='gunting'){
+                                kotakPilihanPlayer.forEach(function(ref){
+                                    if(ref.className == 'gunting'){
+                                        ref.style.backgroundColor='black';
+                                        
+                                    }else(ref.style.backgroundColor ='white')
+                                })
+                                
+                                
+                            }else if(element.className =='batu'){
+                                kotakPilihanPlayer.forEach(function(ref){
+                                    if(ref.className == 'batu'){
+                                        ref.style.backgroundColor='black';
+                                        
+                                    }else(ref.style.backgroundColor ='white')
+                                })
+                            }else{
+                                kotakPilihanPlayer.forEach(function(ref){
+                                    if(ref.className == 'kertas'){
+                                        ref.style.backgroundColor='black';
+                                        
+                                    }else(ref.style.backgroundColor ='white')
+                                })
+                            };
+                           
+                        
+                        
+                        document.body.querySelector('.ada').innerHTML ='';
+                        player = element.className;
+                        let computer;
+                        let hasil='';
+                        boxResult.innerHTML=''
+                        computer = randomComputerChoice(computer);
+                        hasil = rules(player,computer);
+                        const show = 'kamu memilih '+player+' dan computer memilih '+computer+' maka hasilnya kamu.... '
+
+                        let get = document.querySelectorAll('.box.red')[0];
+                        const target =get.children[1].querySelectorAll('img')
+                        const comp =get.nextElementSibling.children[1].querySelector('img');
+                        
+                        function score(hasil){
+                                if(hasil == 'menang') return scoreP.innerHTML =noP++;
+                                if(hasil == 'kalah') return scoreC.innerHTML =noC++;
+                        };
+                        
+                        setTimeout(function(){
+                            imageComp.setAttribute('src',computer +'.png');
+                            setTimeout(function(){
+                                boxResult.innerHTML = hasil;
+                                setTimeout(function(){ score(hasil); },1000)
+                            },1000)
+                            console.log(document.body.querySelector('.ada').innerHTML =show)
+                            title.innerHTML =computer
+                              
+                        },6000);
+                            if(element.addEventListener('click',function(){
+                                console.log(document.body.querySelector('.ada').innerHTML ='')
+                            }));
+                            
+                    
+                    }));
+                });
+                
+                scoreP.innerHTML = 0;
+                scoreC.innerHTML = 0;
+                
+                
+
+            
+
+                       
+                        
+            
+                
+                
+                
+
+        </script>
+    
+</body>
+</html>

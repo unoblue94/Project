@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Suwit Jawa</title>
+</head>
+<body>
+    
+
+    <script>
+        //pengulangan menggunakan while
+        let lagi = true; 
+        while(lagi){
+
+        // menangkap pilihan player
+        let player = prompt('masukkan pilihan anda : cth: gunting, batu ,kertas');
+
+        // menangkap pilihan computer
+        
+        let computer = Math.random()
+        if(computer <= 0.34){
+            computer = 'gunting';
+        }else if(computer > 0.34 && computer < 0.64){
+            computer = 'batu';
+        }else{
+            computer ='kertas'
+        }
+        
+
+    
+
+        // menentukan rules game
+        
+        
+            let hasil =''
+            if (player == computer){
+                hasil ='SERI';
+            }else if(player == 'gunting'){
+                // if(computer = 'batu'){
+                //     hasil ='KALAH';
+                // }else{
+                //     hasil = 'MENANG';
+                // }
+
+                // ternary
+                hasil =(computer == 'batu')? 'KALAH':'MENANG';
+
+            }else if(player == 'batu'){
+                // if(computer = 'kertas'){
+                //     hasil ='KALAH';
+                // }else{
+                //     hasil ='MENANG';
+                // }
+
+                //  ternary
+                hasil = (computer == 'kertas')? 'KALAH':'MENANG';
+            }else if(player =='kertas'){
+                // if(computer ='gunting'){
+                //     hasil = 'KALAH';
+                // }else{
+                //     hasil ='MENANG';
+                // }
+
+                //  ternary
+                hasil = (computer == 'gunting')? 'KALAH':'MENANG';
+            }else{
+                hasil = 'Anda Memasukkan pilihan yang salah, masukkan keyword berikut: gunting ,batu ,kertas';
+            }
+
+            // tampilkan hasil
+            if(player == 'gunting' || player == 'batu' || player == 'kertas' ){
+                alert('kamu memilih ' + player+ ' dan komputer memilih ' + computer+ ' maka hasilnya ' +hasil);
+            }else{
+                alert(hasil);
+            }
+            lagi = confirm('main lagi..?');
+        }
+        alert('terima kasih telah bermain..')
+    </script>
+</body>
+</html>
